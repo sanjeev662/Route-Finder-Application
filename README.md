@@ -10,6 +10,7 @@ This application provides walking directions based on user input for the origin 
 - Autocomplete for origin input using Google Places API
 - Fetching walking directions using Google Maps Directions API
 - Storing and retrieving route data from a MongoDB database
+- BuiltIn component for error handling and notification
 - User authentication and token validation
 
 ## Technologies Used
