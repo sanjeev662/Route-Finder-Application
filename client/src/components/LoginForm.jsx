@@ -40,7 +40,7 @@ const LoginForm = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 ">
-      <div className="min-w-[350px] max-w-md bg-opacity-50 bg-blur rounded-lg shadow-md relative  p-6 z-10" style={{ border: "1px solid #567763", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>        
+      <div className="min-w-[350px] max-w-md bg-opacity-50 bg-blur rounded-lg shadow-md relative p-6 m-2 z-10" style={{ border: "1px solid #567763", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>        
       <h2 className="text-center text-2xl mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

@@ -5,7 +5,7 @@ const RouteDetails = ({ route }) => {
 
   return (
     <div className="max-w-4xl mx-auto mt-10">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="bg-white mx-2 rounded-lg shadow-md overflow-hidden">
         <div className="p-4">
           <h2 className="text-lg font-semibold mb-4">Route Details</h2>
           <div className="mb-4">
