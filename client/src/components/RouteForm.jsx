@@ -16,20 +16,17 @@ const RouteForm = () => {
 
   const fetchSuggestions = async (input, setSuggestions) => {
     try {
-      if(input.length>3){
-      const response = await axios.get('https://maps.googleapis.com/maps/api/place/autocomplete/json', {
-        params: {
-          input,
-          key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        },
-      });
-      setSuggestions(response.data.predictions);
-    }
+      if (input.length > 3) {
+        const response = await axios.get(`${url}/api/routes/place-suggestion`, {
+          params: { input },
+        });
+        setSuggestions(response?.data);
+      }
     } catch (error) {
       console.error('Error fetching suggestions:', error);
     }
   };
-
+  
   const handleSelect = async (suggestion, setAddress, setSuggestions) => {
     setAddress(suggestion);
     setSuggestions([]);
@@ -113,10 +110,10 @@ const RouteForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />          
-          {originSuggestions.length > 0 && (
+          {originSuggestions?.length > 0 && (
             <div className="absolute z-10 bg-white w-1/4 border border-gray-300">
             {/* // <div class="absolute z-10 bg-white border border-gray-300 sm:w-1/4 md:w-1/3 lg:w-1/4 xl:w-1/5"> */}
-              {originSuggestions.map((suggestion) => (
+              {originSuggestions?.map((suggestion) => (
                 <div
                   key={suggestion.place_id}
                   onClick={() => handleSelect(suggestion, setOrigin, setOriginSuggestions)}

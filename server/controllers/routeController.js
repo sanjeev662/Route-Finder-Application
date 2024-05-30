@@ -34,4 +34,14 @@ const getUserRoutes = async (req, res) => {
   }
 };
 
-module.exports = { getRoutes, getUserRoutes, getLastRoutes };
+const getPlaceSuggestions = async (req, res) => {
+  const input = req.query.input;
+  try {
+    const suggestions = await RouteService.getPlaceSuggestions(input);
+    res.json(suggestions);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching suggestions' });
+  }
+};
+
+module.exports = { getRoutes, getUserRoutes, getLastRoutes, getPlaceSuggestions };

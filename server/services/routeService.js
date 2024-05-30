@@ -158,4 +158,18 @@ const getUserRoutes = async (userId) => {
   }
 };
 
-module.exports = { getRoutes, getUserRoutes, getLastRoutes };
+const getPlaceSuggestions = async (input) => {
+  try {
+    const response = await axios.get('https://maps.googleapis.com/maps/api/place/autocomplete/json', {
+      params: {
+        input,
+        key: process.env.GOOGLE_MAPS_API_KEY,
+      },
+    });
+    return response.data.predictions;
+  } catch (error) {
+    throw new Error('Error fetching suggestions');
+  }
+};
+
+module.exports = { getRoutes, getUserRoutes, getLastRoutes, getPlaceSuggestions};
