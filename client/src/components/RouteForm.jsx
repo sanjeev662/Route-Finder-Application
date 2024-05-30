@@ -100,10 +100,10 @@ const RouteForm = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-4">
       <h1 className="text-center text-2xl mb-4">Get Walking Routes</h1>
-      <form onSubmit={handleSubmit} className="min-w-[350px] max-w-4xl bg-white shadow-md rounded mx-2 px-6 py-4">
+      <form onSubmit={handleSubmit} className="min-w-[350px] max-w-4xl bg-white shadow-md rounded mx-auto px-6 py-4">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">Origin</label>
-          {/* <input
+          <input
             type="text"
             value={origin.description || ''}
             onChange={(e) => {
@@ -115,6 +115,7 @@ const RouteForm = () => {
           />          
           {originSuggestions.length > 0 && (
             <div className="absolute z-10 bg-white w-1/4 border border-gray-300">
+            {/* // <div class="absolute z-10 bg-white border border-gray-300 sm:w-1/4 md:w-1/3 lg:w-1/4 xl:w-1/5"> */}
               {originSuggestions.map((suggestion) => (
                 <div
                   key={suggestion.place_id}
@@ -125,32 +126,7 @@ const RouteForm = () => {
                 </div>
               ))}
             </div>
-          )} */}
-          <div className="relative">
-            <input
-              type="text"
-              value={origin.description || ''}
-              onChange={(e) => {
-                setOrigin({ description: e.target.value });
-                fetchSuggestions(e.target.value, setOriginSuggestions);
-              }}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-            {originSuggestions.length > 0 && (
-              <div className="absolute z-10 bg-white border border-gray-300 mt-1 sm:w-full md:w-3/4 lg:w-1/2">
-                {originSuggestions.map((suggestion) => (
-                  <div
-                    key={suggestion.place_id}
-                    onClick={() => handleSelect(suggestion, setOrigin, setOriginSuggestions)}
-                    className="cursor-pointer p-2 hover:bg-gray-200"
-                  >
-                    {suggestion.description}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          )}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">Distance (KM)</label>
