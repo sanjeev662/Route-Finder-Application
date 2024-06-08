@@ -27,6 +27,10 @@ const routeSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
+    polylines: {
+      type: [String],
+      required: true,
+    },
   },
   { timestamps: true }
 );

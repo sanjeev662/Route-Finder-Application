@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { url } from "../utils/Constants";
 import RouteDetails from './RouteDetails';
+import MapView from './MapView';
 import Notification from "../components/Notification";
 
 const RouteForm = () => {
@@ -10,6 +11,7 @@ const RouteForm = () => {
   const [distance, setDistance] = useState(0);
   const [originSuggestions, setOriginSuggestions] = useState([]);
   const [route, setRoute] = useState({});
+  const [polylines, setPolylines] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -47,6 +49,7 @@ const RouteForm = () => {
         }
       );
       setRoute(response.data.route);
+      setPolylines(response.data.route.polylines);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -58,6 +61,7 @@ const RouteForm = () => {
     e.preventDefault();
     setIsLoading(true);
     setRoute({});
+    setPolylines({});
     setOrigin({});
     setDistance(0);
     const token = localStorage.getItem('token');
@@ -71,6 +75,7 @@ const RouteForm = () => {
         }
       );
       setRoute(response.data.route);
+      setPolylines(response.data.route.polylines);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -145,7 +150,10 @@ const RouteForm = () => {
         </div>
       </form>
       {route?.route_data?.length > 0 && (
+        <>
         <RouteDetails route={route} />
+        <MapView polylines={polylines} />
+        </>
       )}
     </div>
   );

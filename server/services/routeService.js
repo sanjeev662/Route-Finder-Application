@@ -2,6 +2,7 @@ const axios = require('axios');
 const { calculateDistance } = require('../utils/mapUtils');
 const RouteDao = require('../dao/routeDao');
 
+
 const getRoutes = async (origin, distance, userId) => {
   const origin_address = origin.description;
   const origin_place_id = origin.place_id;
@@ -102,10 +103,19 @@ const getRoutes = async (origin, distance, userId) => {
         return routes[0].legs[0].steps.map(step => step.html_instructions);
       };
 
+      const extractPolylines = (routes) => {
+        return routes.map(route => route.overview_polyline.points);
+      };
+
       const forwardRouteInstructions = extractInstructions(forwardRoutes);
       const returnRouteInstructions = extractInstructions(returnRoutes);
+      
+      const forwardRoutePolylines = extractPolylines(forwardRoutes);
+      const returnRoutePolylines = extractPolylines(returnRoutes);
 
       const newRouteInstruction = [...forwardRouteInstructions, ...returnRouteInstructions];
+      const newRoutePolylines = [...forwardRoutePolylines, ...returnRoutePolylines];
+      
       let newRoute = null;
 
       if (newRouteInstruction.length) {
@@ -116,11 +126,12 @@ const getRoutes = async (origin, distance, userId) => {
           distance,
           route_last_place_id: destination,
           route_data: newRouteInstruction,
+          polylines: newRoutePolylines,
         });
       }
       return { route: newRoute, message: 'New route found and saved' };
     } else {
-      const existingRoutes = await RouteDao.findOldRoutes({ user: userId, origin_place_id, distance })
+      const existingRoutes = await RouteDao.findOldRoutes({ user: userId, origin_place_id, distance });
 
       if (existingRoutes.length) {
         const oldestUpdatedRoute = existingRoutes[0];
@@ -136,6 +147,7 @@ const getRoutes = async (origin, distance, userId) => {
     throw error;
   }
 };
+
 
 const getLastRoutes = async (userId) => {
   try {
